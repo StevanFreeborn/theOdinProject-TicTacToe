@@ -1,0 +1,31 @@
+{
+  "scripts": {
+    "dev": "npx tsc -w",
+    "build": "npx tsc",
+    "test": "mocha -R list -r ts-node/register -r jsdom-global/register ./tests/**/*.spec.ts",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.2.3",
+    "@types/sinon": "^10.0.15",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "chai": "^4.3.7",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jsdom": "^22.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.8",
+    "sinon": "^15.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@types/jsdom": "^21.1.1"
+  }
+}

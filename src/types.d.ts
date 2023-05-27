@@ -1,7 +1,5 @@
 type Marker = '' | 'X' | 'O';
 
-type Board = { [key: string]: Marker };
-
 type State = {
   board: { [key: string]: Marker };
   currentPlayer: string;

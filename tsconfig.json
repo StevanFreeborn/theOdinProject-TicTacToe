@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["ES2015", "DOM"],
-    "module": "commonjs",
+    "module": "ES6",
     "outDir": "./public/js",
     "strict": true,
     "target": "ES2015"

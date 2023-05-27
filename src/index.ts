@@ -4,7 +4,7 @@ type Board = { [key: string]: Marker };
 document.addEventListener('DOMContentLoaded', () => {
   let currentPlayer = '';
 
-  const boardSquares: Board = {
+  const boardState: Board = {
     squareOne: '',
     squareTwo: '',
     squareThree: '',
@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     squareNine: '',
   };
 
-  const board = document.getElementById('board');
+  const boardDisplay = document.getElementById('board');
+  const winnerDisplay = document.getElementById('winner');
 
   function getCurrentPlayer({ currentPlayer }: { currentPlayer: string }) {
     if (currentPlayer === '') {
@@ -27,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderBoard({
-    boardSquares,
+    boardState,
     board,
+    winnerDisplay,
   }: {
-    boardSquares: Board;
+    boardState: Board;
     board: HTMLElement | null;
+    winnerDisplay: HTMLElement | null;
   }) {
     if (board === null) {
       return;
@@ -39,45 +42,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     board.innerHTML = '';
 
-    for (const square in boardSquares) {
+    for (const square in boardState) {
       const div = document.createElement('div');
       div.id = square;
       div.classList.add('square');
-      div.innerText = boardSquares[square];
+      div.innerText = boardState[square];
       div.addEventListener('click', e => {
         currentPlayer = getCurrentPlayer({ currentPlayer });
         placeMarker({
-          boardSquares,
+          boardState,
           marker: currentPlayer as Marker,
           event: e,
         });
-        renderBoard({ board, boardSquares });
-        const result = checkForWinner({ boardSquares });
-        displayWinner({ result });
+        renderBoard({ board, boardState, winnerDisplay });
+        const result = checkForWinner({ boardState });
+        displayWinner({ result, winnerDisplay });
       });
       board?.append(div);
     }
   }
 
-  function displayWinner({ result }: { result: string | null }) {
-    if (result === null) {
+  function displayWinner({
+    winnerDisplay,
+    result,
+  }: {
+    winnerDisplay: HTMLElement | null;
+    result: string | null;
+  }) {
+    if (result === null || winnerDisplay === null) {
       return;
     }
 
     if (result === 'DRAW') {
-      console.log('It is a draw');
+      winnerDisplay.innerText = 'It is a draw';
       return;
     }
 
-    console.log(`${result} wins!`);
+    winnerDisplay.innerText = `${result} wins!`;
   }
 
   function placeMarker({
-    boardSquares,
+    boardState,
     marker,
     event,
   }: {
-    boardSquares: Board;
+    boardState: Board;
     marker: Marker;
     event: MouseEvent;
   }) {
@@ -89,13 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     square.innerText = marker;
-    boardSquares[key] = marker;
+    boardState[key] = marker;
   }
 
   function checkForWinner({
-    boardSquares,
+    boardState,
   }: {
-    boardSquares: Board;
+    boardState: Board;
   }): '' | 'X' | 'O' | 'DRAW' | null {
     const winningSequences = [
       ['squareOne', 'squareTwo', 'squareThree'],
@@ -110,10 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     for (const sequence of winningSequences) {
       const firstPlace = sequence[0];
+      const firstMark = boardState[firstPlace];
 
       const isWinner = sequence.every(place => {
-        const firstMark = boardSquares[firstPlace];
-        const currentMark = boardSquares[place];
+        const currentMark = boardState[place];
 
         if (firstMark === '' || currentMark === '') {
           return false;
@@ -123,16 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (isWinner) {
-        return firstPlace as Marker;
+        return firstMark;
       }
     }
 
-    if (Object.values(boardSquares).every(square => square !== '')) {
+    if (Object.values(boardState).every(square => square !== '')) {
       return 'DRAW';
     }
 
     return null;
   }
 
-  renderBoard({ boardSquares, board });
+  renderBoard({ boardState, board: boardDisplay, winnerDisplay });
 });

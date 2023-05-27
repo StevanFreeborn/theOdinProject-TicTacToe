@@ -13,24 +13,26 @@ document.addEventListener('DOMContentLoaded', () => {
       squareEight: '',
       squareNine: '',
     },
-    currentPlayer: '',
+    currentPlayer: 'X',
     winner: '',
   };
 
   const boardDisplay = document.getElementById('board');
   const winnerDisplay = document.getElementById('winner');
+  const currentPlayerDisplay = document.getElementById('currentPlayer');
 
   const { render, updateCurrentPlayer, updateBoard, updateWinner } = game({
     state,
   });
 
   function handleSquareClick(event: MouseEvent) {
-    updateCurrentPlayer();
     updateBoard({ event });
+    updateCurrentPlayer();
     updateWinner();
     render({
       boardDisplay,
       winnerDisplay,
+      currentPlayerDisplay,
       squareClickHandler: handleSquareClick,
     });
   }
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render({
     boardDisplay,
     winnerDisplay,
+    currentPlayerDisplay,
     squareClickHandler: handleSquareClick,
   });
 });

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
+
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +8,7 @@
 
 :root {
   font-size: 16px;
+  font-family: 'Cabin Sketch', cursive;
 }
 
 html,
@@ -14,9 +17,54 @@ body,
   height: 100%;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.versus-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.winner-container {
+  display: flex;
+  justify-content: center;
+  height: 2rem;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+#winner {
+  color: green;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+}
+
 #board {
+  width: 400px;
+  height: 400px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  background-color: black;
+  gap: 1px;
+  border: 1px solid black;
 }
 
 .square {
@@ -24,5 +72,14 @@ body,
   align-items: center;
   justify-content: center;
   font-size: 5rem;
-  border: 1px red dashed;
+  background-color: white;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  margin-top: 1rem;
 }

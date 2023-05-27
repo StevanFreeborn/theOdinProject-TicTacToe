@@ -2,6 +2,10 @@ export function game({ state }: { state: State }) {
   let gameState = { ...state };
 
   function updateCurrentPlayer() {
+    if (gameState.winner !== '') {
+      return;
+    }
+
     const updatedState = { ...gameState };
 
     switch (gameState.currentPlayer) {
@@ -20,7 +24,7 @@ export function game({ state }: { state: State }) {
     const square = event.target as HTMLDivElement;
     const key = square.id;
 
-    if (square.innerText !== '') {
+    if (square.innerText !== '' || gameState.winner !== '') {
       return;
     }
 
@@ -34,6 +38,10 @@ export function game({ state }: { state: State }) {
   }
 
   function updateWinner() {
+    if (gameState.winner !== '') {
+      return;
+    }
+
     const winningSequences = [
       ['squareOne', 'squareTwo', 'squareThree'],
       ['squareFour', 'squareFive', 'squareSix'],
@@ -62,7 +70,7 @@ export function game({ state }: { state: State }) {
       if (isWinner) {
         gameState = {
           ...gameState,
-          winner: firstMark,
+          winner: `Winner: ${firstMark}`,
         };
       }
     }
@@ -81,12 +89,17 @@ export function game({ state }: { state: State }) {
     currentPlayerDisplay,
     squareClickHandler,
   }: RenderParams) {
-    if (boardDisplay === null || winnerDisplay === null) {
+    if (
+      boardDisplay === null ||
+      winnerDisplay === null ||
+      currentPlayerDisplay === null
+    ) {
       return;
     }
 
     boardDisplay.innerHTML = '';
     winnerDisplay.innerHTML = '';
+    currentPlayerDisplay.innerHTML = '';
 
     for (const square in gameState.board) {
       const div = document.createElement('div');
@@ -95,6 +108,12 @@ export function game({ state }: { state: State }) {
       div.innerText = gameState.board[square];
       div.addEventListener('click', squareClickHandler);
       boardDisplay.append(div);
+    }
+
+    if (gameState.winner === '') {
+      currentPlayerDisplay.innerText = `${gameState.currentPlayer}'s move.`;
+    } else {
+      currentPlayerDisplay.innerText = '';
     }
 
     winnerDisplay.innerText = gameState.winner;

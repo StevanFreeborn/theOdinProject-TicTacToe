@@ -10,7 +10,7 @@ type State = {
 
 type RenderParams = {
   boardDisplay: HTMLElement | null;
-  currentPlayerDisplay?: HTMLElement | null;
+  currentPlayerDisplay: HTMLElement | null;
   winnerDisplay: HTMLElement | null;
   squareClickHandler: (e: MouseEvent) => void;
 };

@@ -6,18 +6,10 @@ export function game({ state }: { state: State }) {
       return;
     }
 
-    const updatedState = { ...gameState };
-
-    switch (gameState.currentPlayer) {
-      case 'O':
-        updatedState.currentPlayer = 'X';
-        break;
-      default:
-        updatedState.currentPlayer = 'O';
-        break;
-    }
-
-    gameState = updatedState;
+    gameState = {
+      ...gameState,
+      currentPlayer: gameState.currentPlayer === 'O' ? 'X' : 'O',
+    };
   }
 
   function updateBoard({ event }: { event: MouseEvent }) {

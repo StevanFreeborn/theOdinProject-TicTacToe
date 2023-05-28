@@ -4,16 +4,7 @@ export function game({ state }) {
         if (gameState.winner !== '') {
             return;
         }
-        const updatedState = Object.assign({}, gameState);
-        switch (gameState.currentPlayer) {
-            case 'O':
-                updatedState.currentPlayer = 'X';
-                break;
-            default:
-                updatedState.currentPlayer = 'O';
-                break;
-        }
-        gameState = updatedState;
+        gameState = Object.assign(Object.assign({}, gameState), { currentPlayer: gameState.currentPlayer === 'O' ? 'X' : 'O' });
     }
     function updateBoard({ event }) {
         const square = event.target;

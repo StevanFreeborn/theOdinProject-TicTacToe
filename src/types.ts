@@ -1,19 +1,19 @@
-type Marker = '' | 'X' | 'O';
+export type Marker = '' | 'X' | 'O';
 
-type State = {
+export type State = {
   board: { [key: string]: Marker };
   currentPlayer: string;
   winner: string;
 };
 
-type RenderParams = {
+export type RenderParams = {
   boardDisplay: HTMLElement | null;
   currentPlayerDisplay: HTMLElement | null;
   winnerDisplay: HTMLElement | null;
   squareClickHandler: (e: MouseEvent) => void;
 };
 
-type Game = {
+export type Game = {
   updateCurrentPlayer: () => void;
   updateBoard: ({ event }: { event: MouseEvent }) => void;
   updateWinner: () => void;

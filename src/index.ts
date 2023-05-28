@@ -1,4 +1,5 @@
 import { game } from './game.js';
+import { State } from './types.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const state: State = {

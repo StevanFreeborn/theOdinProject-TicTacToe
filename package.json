@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "npx tsc -w",
     "build": "npx tsc",
-    "test": "mocha -R list -r ts-node/register -r jsdom-global/register ./tests/**/*.spec.ts",
+    "test": "mocha -R spec -r ts-node/register -r jsdom-global/register ./tests/**/*.spec.ts",
     "lint": "eslint . --ext .ts",
     "format": "prettier --config .prettierrc.json 'src/**/*.ts' --write"
   },

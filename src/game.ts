@@ -1,5 +1,8 @@
+import { Marker, RenderParams, State } from './types';
+
 export function game({ state }: { state: State }) {
-  let gameState = { ...state };
+  let gameState: State = { ...state };
+
   function updateCurrentPlayer() {
     if (gameState.winner !== '') {
       return;

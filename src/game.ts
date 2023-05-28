@@ -112,6 +112,7 @@ export function game({ state }: { state: State }) {
   }
 
   return {
+    getState: () => gameState,
     updateCurrentPlayer,
     updateBoard,
     updateWinner,

@@ -1,4 +1,4 @@
-import { Marker, RenderParams, State } from './types';
+import { Marker, RenderParams, State } from './types.js';
 
 export function game({ state }: { state: State }) {
   let gameState: State = { ...state };
@@ -10,7 +10,7 @@ export function game({ state }: { state: State }) {
 
     gameState = {
       ...gameState,
-      currentPlayer: gameState.currentPlayer === 'O' ? 'X' : 'O',
+      currentPlayer: gameState.currentPlayer === Marker.O ? Marker.X : Marker.O,
     };
   }
 
@@ -18,7 +18,10 @@ export function game({ state }: { state: State }) {
     const square = event.target as HTMLDivElement;
     const key = square.id;
 
-    if (square.innerText !== '' || gameState.winner !== '') {
+    if (
+      square.innerText !== Marker.Empty ||
+      gameState.winner !== Marker.Empty
+    ) {
       return;
     }
 
@@ -32,7 +35,7 @@ export function game({ state }: { state: State }) {
   }
 
   function updateWinner() {
-    if (gameState.winner !== '') {
+    if (gameState.winner !== Marker.Empty) {
       return;
     }
 
@@ -54,7 +57,7 @@ export function game({ state }: { state: State }) {
       const isWinner = sequence.every(place => {
         const currentMark = gameState.board[place];
 
-        if (firstMark === '' || currentMark === '') {
+        if (firstMark === Marker.Empty || currentMark === Marker.Empty) {
           return false;
         }
 
@@ -69,7 +72,9 @@ export function game({ state }: { state: State }) {
       }
     }
 
-    if (Object.values(gameState.board).every(square => square !== '')) {
+    if (
+      Object.values(gameState.board).every(square => square !== Marker.Empty)
+    ) {
       gameState = {
         ...gameState,
         winner: 'DRAW',
@@ -104,7 +109,7 @@ export function game({ state }: { state: State }) {
       boardDisplay.append(div);
     }
 
-    if (gameState.winner === '') {
+    if (gameState.winner === Marker.Empty) {
       currentPlayerDisplay.innerText = `${gameState.currentPlayer}'s move.`;
     } else {
       currentPlayerDisplay.innerText = '';

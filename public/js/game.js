@@ -1,21 +1,23 @@
+import { Marker } from './types.js';
 export function game({ state }) {
     let gameState = Object.assign({}, state);
     function updateCurrentPlayer() {
         if (gameState.winner !== '') {
             return;
         }
-        gameState = Object.assign(Object.assign({}, gameState), { currentPlayer: gameState.currentPlayer === 'O' ? 'X' : 'O' });
+        gameState = Object.assign(Object.assign({}, gameState), { currentPlayer: gameState.currentPlayer === Marker.O ? Marker.X : Marker.O });
     }
     function updateBoard({ event }) {
         const square = event.target;
         const key = square.id;
-        if (square.innerText !== '' || gameState.winner !== '') {
+        if (square.innerText !== Marker.Empty ||
+            gameState.winner !== Marker.Empty) {
             return;
         }
         gameState = Object.assign(Object.assign({}, gameState), { board: Object.assign(Object.assign({}, gameState.board), { [key]: gameState.currentPlayer }) });
     }
     function updateWinner() {
-        if (gameState.winner !== '') {
+        if (gameState.winner !== Marker.Empty) {
             return;
         }
         const winningSequences = [
@@ -33,7 +35,7 @@ export function game({ state }) {
             const firstMark = gameState.board[firstPlace];
             const isWinner = sequence.every(place => {
                 const currentMark = gameState.board[place];
-                if (firstMark === '' || currentMark === '') {
+                if (firstMark === Marker.Empty || currentMark === Marker.Empty) {
                     return false;
                 }
                 return currentMark === firstMark;
@@ -42,7 +44,7 @@ export function game({ state }) {
                 gameState = Object.assign(Object.assign({}, gameState), { winner: `Winner: ${firstMark}` });
             }
         }
-        if (Object.values(gameState.board).every(square => square !== '')) {
+        if (Object.values(gameState.board).every(square => square !== Marker.Empty)) {
             gameState = Object.assign(Object.assign({}, gameState), { winner: 'DRAW' });
         }
     }
@@ -63,7 +65,7 @@ export function game({ state }) {
             div.addEventListener('click', squareClickHandler);
             boardDisplay.append(div);
         }
-        if (gameState.winner === '') {
+        if (gameState.winner === Marker.Empty) {
             currentPlayerDisplay.innerText = `${gameState.currentPlayer}'s move.`;
         }
         else {

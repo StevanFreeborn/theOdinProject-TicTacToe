@@ -1,4 +1,8 @@
-export type Marker = '' | 'X' | 'O';
+export enum Marker {
+  X = 'X',
+  O = 'O',
+  Empty = '',
+}
 
 export type State = {
   board: { [key: string]: Marker };

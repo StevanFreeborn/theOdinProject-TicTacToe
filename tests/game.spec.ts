@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { game } from '../src/game';
+import { Marker } from '../src/types';
 
 describe('game', function () {
   describe('updateCurrentPlayer', function () {
@@ -127,6 +128,54 @@ describe('game', function () {
       updateWinner();
 
       expect(getState().winner).to.be.equal(state.winner);
+    });
+
+    it('should not update winner if no winning sequences are on board', function () {
+      const state = {
+        board: {
+          squareOne: Marker.Empty,
+          squareTwo: Marker.Empty,
+          squareThree: Marker.Empty,
+          squareFour: Marker.Empty,
+          squareFive: Marker.Empty,
+          squareSix: Marker.Empty,
+          squareSeven: Marker.Empty,
+          squareEight: Marker.Empty,
+          squareNine: Marker.Empty,
+        },
+        currentPlayer: '0',
+        winner: '',
+      };
+
+      const { getState, updateWinner } = game({ state });
+
+      updateWinner();
+
+      expect(getState().winner).to.be.equal(state.winner);
+    });
+
+    it('should update winner if winning sequence is on board', function () {
+      const state = {
+        board: {
+          squareOne: Marker.X,
+          squareTwo: Marker.X,
+          squareThree: Marker.X,
+          squareFour: Marker.Empty,
+          squareFive: Marker.Empty,
+          squareSix: Marker.Empty,
+          squareSeven: Marker.Empty,
+          squareEight: Marker.Empty,
+          squareNine: Marker.Empty,
+        },
+        currentPlayer: '0',
+        winner: '',
+      };
+
+      const { getState, updateWinner } = game({ state });
+
+      updateWinner();
+
+      expect(getState().winner).to.be.equal(`Winner: ${Marker.X}`);
     });
   });
 });

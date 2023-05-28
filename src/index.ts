@@ -1,18 +1,18 @@
 import { game } from './game.js';
-import { State } from './types.js';
+import { Marker, State } from './types.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const state: State = {
     board: {
-      squareOne: '',
-      squareTwo: '',
-      squareThree: '',
-      squareFour: '',
-      squareFive: '',
-      squareSix: '',
-      squareSeven: '',
-      squareEight: '',
-      squareNine: '',
+      squareOne: Marker.Empty,
+      squareTwo: Marker.Empty,
+      squareThree: Marker.Empty,
+      squareFour: Marker.Empty,
+      squareFive: Marker.Empty,
+      squareSix: Marker.Empty,
+      squareSeven: Marker.Empty,
+      squareEight: Marker.Empty,
+      squareNine: Marker.Empty,
     },
     currentPlayer: 'X',
     winner: '',

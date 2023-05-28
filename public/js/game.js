@@ -72,7 +72,7 @@ export function game({ state }) {
         winnerDisplay.innerText = gameState.winner;
     }
     return {
-        gameState,
+        getState: () => gameState,
         updateCurrentPlayer,
         updateBoard,
         updateWinner,

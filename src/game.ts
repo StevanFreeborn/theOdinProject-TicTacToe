@@ -1,6 +1,5 @@
 export function game({ state }: { state: State }) {
   let gameState = { ...state };
-
   function updateCurrentPlayer() {
     if (gameState.winner !== '') {
       return;

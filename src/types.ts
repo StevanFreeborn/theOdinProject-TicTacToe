@@ -15,6 +15,7 @@ export type RenderParams = {
   currentPlayerDisplay: HTMLElement | null;
   winnerDisplay: HTMLElement | null;
   squareClickHandler: (e: MouseEvent) => void;
+  resetButtonClickHandler: (e: MouseEvent) => void;
 };
 
 export type Game = {

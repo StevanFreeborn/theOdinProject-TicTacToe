@@ -83,3 +83,17 @@ footer {
   flex: 1;
   margin-top: 1rem;
 }
+
+.reset-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: rgb(216, 1, 1);
+}

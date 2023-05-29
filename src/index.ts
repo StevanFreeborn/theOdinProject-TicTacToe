@@ -22,9 +22,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const winnerDisplay = document.getElementById('winner');
   const currentPlayerDisplay = document.getElementById('currentPlayer');
 
-  const { render, updateCurrentPlayer, updateBoard, updateWinner } = game({
-    state,
-  });
+  const { render, updateCurrentPlayer, updateBoard, updateWinner, reset } =
+    game({
+      state,
+    });
+
+  function handleResetButtonClick() {
+    reset();
+    render({
+      boardDisplay,
+      winnerDisplay,
+      currentPlayerDisplay,
+      squareClickHandler: handleSquareClick,
+      resetButtonClickHandler: handleResetButtonClick,
+    });
+  }
 
   function handleSquareClick(event: MouseEvent) {
     updateBoard({ event });
@@ -35,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       winnerDisplay,
       currentPlayerDisplay,
       squareClickHandler: handleSquareClick,
+      resetButtonClickHandler: handleResetButtonClick,
     });
   }
 
@@ -43,5 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     winnerDisplay,
     currentPlayerDisplay,
     squareClickHandler: handleSquareClick,
+    resetButtonClickHandler: handleResetButtonClick,
   });
 });

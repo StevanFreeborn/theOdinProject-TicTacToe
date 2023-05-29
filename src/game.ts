@@ -82,11 +82,16 @@ export function game({ state }: { state: State }) {
     }
   }
 
+  function reset() {
+    gameState = state;
+  }
+
   function render({
     boardDisplay,
     winnerDisplay,
     currentPlayerDisplay,
     squareClickHandler,
+    resetButtonClickHandler,
   }: RenderParams) {
     if (
       boardDisplay === null ||
@@ -109,13 +114,20 @@ export function game({ state }: { state: State }) {
       boardDisplay.append(div);
     }
 
+    winnerDisplay.innerText = gameState.winner;
+
     if (gameState.winner === Marker.Empty) {
       currentPlayerDisplay.innerText = `${gameState.currentPlayer}'s move.`;
-    } else {
-      currentPlayerDisplay.innerText = '';
+      return;
     }
 
-    winnerDisplay.innerText = gameState.winner;
+    currentPlayerDisplay.innerText = '';
+    const resetButton = document.createElement('button');
+    resetButton.id = 'resetButton';
+    resetButton.classList.add('reset-button');
+    resetButton.innerText = 'Play Again';
+    resetButton.addEventListener('click', resetButtonClickHandler);
+    currentPlayerDisplay.appendChild(resetButton);
   }
 
   return {
@@ -123,6 +135,7 @@ export function game({ state }: { state: State }) {
     updateCurrentPlayer,
     updateBoard,
     updateWinner,
+    reset,
     render,
   };
 }

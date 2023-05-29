@@ -48,7 +48,10 @@ export function game({ state }) {
             gameState = Object.assign(Object.assign({}, gameState), { winner: 'DRAW' });
         }
     }
-    function render({ boardDisplay, winnerDisplay, currentPlayerDisplay, squareClickHandler, }) {
+    function reset() {
+        gameState = state;
+    }
+    function render({ boardDisplay, winnerDisplay, currentPlayerDisplay, squareClickHandler, resetButtonClickHandler, }) {
         if (boardDisplay === null ||
             winnerDisplay === null ||
             currentPlayerDisplay === null) {
@@ -65,19 +68,25 @@ export function game({ state }) {
             div.addEventListener('click', squareClickHandler);
             boardDisplay.append(div);
         }
+        winnerDisplay.innerText = gameState.winner;
         if (gameState.winner === Marker.Empty) {
             currentPlayerDisplay.innerText = `${gameState.currentPlayer}'s move.`;
+            return;
         }
-        else {
-            currentPlayerDisplay.innerText = '';
-        }
-        winnerDisplay.innerText = gameState.winner;
+        currentPlayerDisplay.innerText = '';
+        const resetButton = document.createElement('button');
+        resetButton.id = 'resetButton';
+        resetButton.classList.add('reset-button');
+        resetButton.innerText = 'Play Again';
+        resetButton.addEventListener('click', resetButtonClickHandler);
+        currentPlayerDisplay.appendChild(resetButton);
     }
     return {
         getState: () => gameState,
         updateCurrentPlayer,
         updateBoard,
         updateWinner,
+        reset,
         render,
     };
 }

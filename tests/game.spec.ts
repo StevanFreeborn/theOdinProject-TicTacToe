@@ -178,4 +178,21 @@ describe('game', function () {
       expect(getState().winner).to.be.equal(`Winner: ${Marker.X}`);
     });
   });
+
+  describe('reset', function () {
+    it('should set the game state back to the original state passed at the start of the game', function () {
+      const state = {
+        currentPlayer: 'O',
+        winner: '',
+        board: {},
+      };
+
+      const { getState, updateCurrentPlayer, reset } = game({ state });
+
+      updateCurrentPlayer();
+      reset();
+
+      expect(getState()).to.be.deep.equal(state);
+    });
+  });
 });

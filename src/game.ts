@@ -83,7 +83,7 @@ export function game({ state }: { state: State }) {
   }
 
   function reset() {
-    gameState = state;
+    gameState = { ...state };
   }
 
   function render({

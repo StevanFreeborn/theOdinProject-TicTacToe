@@ -49,7 +49,7 @@ export function game({ state }) {
         }
     }
     function reset() {
-        gameState = state;
+        gameState = Object.assign({}, state);
     }
     function render({ boardDisplay, winnerDisplay, currentPlayerDisplay, squareClickHandler, resetButtonClickHandler, }) {
         if (boardDisplay === null ||
